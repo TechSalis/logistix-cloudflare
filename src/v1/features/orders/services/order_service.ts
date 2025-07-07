@@ -1,6 +1,6 @@
 // Folder: cloudflare/services/order.service.ts
 
-import { supabaseRequest } from '../../../db/supabase_client';
+import { supabaseRequest } from '../../../../db/supabase_client';
 
 interface CreateOrderParams {
   user_id: string;

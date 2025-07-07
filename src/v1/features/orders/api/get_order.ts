@@ -1,4 +1,4 @@
-import { handleRequest } from "../../../lib/verify_jwt";
+import { handleRequest } from "../../../../lib/verify_jwt";
 import { getOrder } from "../services/order_service";
 
 export const urlPathPattern = '/orders/:id';

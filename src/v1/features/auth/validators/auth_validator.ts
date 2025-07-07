@@ -1,4 +1,4 @@
-import { ValidatorResponse } from "../../../constants/validator_response";
+import { ValidatorResponse } from "../../../../db/constants/validator_response";
 
 export default function validateAuthInput(email: unknown, password: unknown, role?: unknown): ValidatorResponse {
 

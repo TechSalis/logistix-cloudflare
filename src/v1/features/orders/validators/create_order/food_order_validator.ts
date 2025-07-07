@@ -1,5 +1,5 @@
 import { isRecord } from "../../../../../utils/functions";
-import { ValidatorResponse } from "../../../../constants/validator_response";
+import { ValidatorResponse } from "../../../../../db/constants/validator_response";
 
 interface FoodOrderInput {
   pickup?: unknown;

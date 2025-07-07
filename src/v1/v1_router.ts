@@ -1,4 +1,4 @@
-import { ErrorResponse } from './constants/error_responses';
+import { ErrorResponse } from '../db/constants/error_responses';
 import { LazyRouter } from '../utils/lazy_router';
 import { urlPathPattern as signupWithPasswordPattern } from './features/auth/api/sign_up_email';
 import { urlPathPattern as loginWithPasswordPattern } from './features/auth/api/log_in_email';

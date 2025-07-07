@@ -1,5 +1,5 @@
 import { decodeJwt } from 'jose';
-import { ErrorResponse } from '../constants/error_responses';
+import { ErrorResponse } from '../db/constants/error_responses';
 
 export function handleRequest(
   handler: (data: {

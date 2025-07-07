@@ -1,5 +1,5 @@
 import { AuthError, createClient, Session, User } from '@supabase/supabase-js';
-import { UserTypes } from '../../../constants/db_constants';
+import { UserTypes } from '../../../../db/constants/db_constants';
 import { env } from 'cloudflare:workers';
 
 const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_SERVICE_KEY, {
