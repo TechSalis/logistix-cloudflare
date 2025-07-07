@@ -1,9 +1,9 @@
 // Folder: cloudflare/services/order.service.ts
 
-import { supabaseRequest } from '../db/supabase_client';
+import { supabaseRequest } from '../../../db/supabase_client';
 
 interface CreateOrderParams {
-  userId: string;
+  user_id: string;
   pickup: Record<string, unknown>;
   dropoff: Record<string, unknown>;
   description: string;
@@ -12,15 +12,13 @@ interface CreateOrderParams {
 }
 
 export async function createOrder(
-  { userId, pickup, dropoff, description, extras, order_type }: CreateOrderParams,
-  env: Env
+  { user_id, pickup, dropoff, description, extras, order_type }: CreateOrderParams,
 ) {
   return await supabaseRequest(
-    'orders',
+    'Orders',
     'POST',
-    env,
     {
-      user_id: userId,
+      user_id,
       pickup,
       dropoff,
       description,
@@ -32,11 +30,14 @@ export async function createOrder(
 }
 
 export async function getOrders(
-  userId: string, env: Env, status?: string, limit: number = 10
+  userId: string, limit: number = 10
 ) {
   return await supabaseRequest(
-    `orders?select=*&user_id=eq.${userId}${status ? `&status=${status}` : ''}&order=created_at.desc&limit=${limit}`,
+    `Orders?select=*&user_id=eq.${userId}&order=created_at.desc&limit=${limit}`,
     'GET',
-    env
   );
+}
+
+export async function getOrder(userId: string, id: string) {
+  return await supabaseRequest(`Orders?select=*&order_id=eq.${id}`, 'GET');
 }

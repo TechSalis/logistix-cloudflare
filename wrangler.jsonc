@@ -5,7 +5,7 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "logistix-api",
-	"main": "src/api/_router.ts",
+	"main": "src/_router.ts",
 	"compatibility_date": "2025-07-05",
 	"observability": {
 		"enabled": true
@@ -29,7 +29,8 @@
 	 */
 	"vars": {
 		"SUPABASE_URL": "https://rrlvhszexjszxcoesilp.supabase.co",
-		"SUPABASE_SERVICE_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJybHZoc3pleGpzenhjb2VzaWxwIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MTQ2NDM0NSwiZXhwIjoyMDY3MDQwMzQ1fQ.k_XTk7Nrhg3Yg4gWkcEWeZewe4DEWVgQrx6QS0nBus4"
+		"SUPABASE_SERVICE_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJybHZoc3pleGpzenhjb2VzaWxwIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MTQ2NDM0NSwiZXhwIjoyMDY3MDQwMzQ1fQ.k_XTk7Nrhg3Yg4gWkcEWeZewe4DEWVgQrx6QS0nBus4",
+		"SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJybHZoc3pleGpzenhjb2VzaWxwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTE0NjQzNDUsImV4cCI6MjA2NzA0MDM0NX0.8I5Qf_s_RDRHzt1gjl6zBWcrhL6-F7MELy_iDa8MZTs"
 	},
 	/**
 	 * Note: Use secrets to store sensitive data.
