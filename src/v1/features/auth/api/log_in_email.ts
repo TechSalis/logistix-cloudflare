@@ -1,4 +1,4 @@
-import { ErrorResponse } from '../../../../db/constants/error_responses';
+import { ErrorResponse } from '../../../../utils/error_responses';
 import { mapSession, mapUser } from '../helpers/data_interfaces';
 import { loginWithPassword } from '../services/auth_service';
 import validateAuthInput from '../validators/auth_validator';

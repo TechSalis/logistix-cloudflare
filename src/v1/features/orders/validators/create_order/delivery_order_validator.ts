@@ -1,4 +1,4 @@
-import { ValidatorResponse } from "../../../../../db/constants/validator_response";
+import { ValidatorResponse } from "../../../../../utils/validator_response";
 
 interface DeliveryOrderInput {
   pickup?: unknown;

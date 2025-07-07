@@ -1,6 +1,6 @@
 import { createOrder } from '../services/order_service';
 import { handleRequest } from '../../../../lib/verify_jwt';
-import { ErrorResponse } from '../../../../db/constants/error_responses';
+import { ErrorResponse } from '../../../../utils/error_responses';
 import validateOrderByType from '../validators/create_order_validator';
 
 export const urlPathPattern = '/orders';

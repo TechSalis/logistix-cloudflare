@@ -1,5 +1,5 @@
 // Folder: cloudflare/api/_router.ts
-import { ErrorResponse } from './db/constants/error_responses';
+import { ErrorResponse } from './utils/error_responses';
 import v1 from './v1/v1_router';
 
 export default {

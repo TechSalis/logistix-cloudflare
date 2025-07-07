@@ -1,5 +1,5 @@
 import { OrderTypes } from '../../../../db/constants/db_constants';
-import { ValidatorResponse } from '../../../../db/constants/validator_response';
+import { ValidatorResponse } from '../../../../utils/validator_response';
 
 export default async function validateOrderByType(json: Record<string, unknown>): Promise<ValidatorResponse> {
   const order_type = json.order_type as string;
