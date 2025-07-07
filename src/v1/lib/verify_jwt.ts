@@ -5,11 +5,11 @@ export function handleRequest(
   handler: (data: {
     userId: string;
     json?: Record<string, unknown>;
-    req: Request;
+    patternMatch: URLPatternResult;
   }) => Promise<Response>
 ) {
   return {
-    async request(req: Request): Promise<Response> {
+    async request(req: Request, patternMatch: URLPatternResult): Promise<Response> {
       try {
         const auth = req.headers.get('Authorization');
         if (!auth?.startsWith('Bearer ')) {
@@ -33,7 +33,7 @@ export function handleRequest(
           }
         }
 
-        return await handler({ userId, json, req });
+        return await handler({ userId, json, patternMatch });
       } catch (err) {
         console.error('JWT verification failed:', err);
         return ErrorResponse.internalServerError();

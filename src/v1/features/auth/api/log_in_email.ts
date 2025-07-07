@@ -5,7 +5,7 @@ import validateAuthInput from '../validators/auth_validator';
 
 export const urlPathPattern = '/auth/login-password';
 
-export async function request(request: Request) {
+export async function execute(request: Request) {
     try {
         const json = await request.json() as Record<string, unknown>;
         const { email, password } = json;

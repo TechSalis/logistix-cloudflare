@@ -6,43 +6,39 @@ import { urlPathPattern as GetOrderPattern } from './features/orders/api/get_ord
 import { urlPathPattern as GetOrdersPattern } from './features/orders/api/get_orders';
 import { urlPathPattern as CreateOrderPattern } from './features/orders/api/create_order';
 
-const router = new LazyRouter();
+const router = new LazyRouter('/v1');
 
 { /// Auth-Group
   router.on('POST', signupWithPasswordPattern, async (req) => {
     const signUp = await import('./features/auth/api/sign_up_email');
-    return signUp.request(req);
+    return signUp.execute(req);
   });
   router.on('POST', loginWithPasswordPattern, async (req) => {
     const login = await import('./features/auth/api/log_in_email');
-    return login.request(req);
+    return login.execute(req);
   });
 } /// END Auth-Group
 
 { /// Orders-Group
-  router.on('GET', GetOrderPattern, async (req) => {
+  router.on('GET', GetOrderPattern, async (req, match) => {
     const getOrder = await import('./features/orders/api/get_order');
-    return getOrder.default.request(req);
+    return getOrder.default.request(req, match);
   });
 
-  router.on('GET', GetOrdersPattern, async (req) => {
+  router.on('GET', GetOrdersPattern, async (req, match) => {
     const getOrders = await import('./features/orders/api/get_orders');
-    return getOrders.default.request(req);
+    return getOrders.default.request(req, match);
   });
 
-  router.on('POST', CreateOrderPattern, async (req) => {
+  router.on('POST', CreateOrderPattern, async (req, match) => {
     const createOrder = await import('./features/orders/api/create_order');
-    return createOrder.default.request(req);
+    return createOrder.default.request(req, match);
   });
 } /// END Orders-Group
 
 
 export default {
   async route(req: Request): Promise<Response> {
-    const newUrl = new URL(req.url);
-    newUrl.pathname = newUrl.pathname.replace('/v1', '');
-    req = new Request(newUrl, req);
-
     return await router.route(req) || ErrorResponse.notFound();
   },
 };
