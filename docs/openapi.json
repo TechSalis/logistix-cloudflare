@@ -1,0 +1,229 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Logistix Cloudflare API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8787",
+      "description": "Local server"
+    },
+    {
+      "url": "",
+      "description": "Development server"
+    },
+    {
+      "url": "",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/orders/food": {
+      "post": {
+        "summary": "Create a new food order",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "pickup": {
+                    "type": "string"
+                  },
+                  "dropoff": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "pickup",
+                  "dropoff",
+                  "description"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Order successfully created."
+          },
+          "400": {
+            "description": "Invalid input or payload."
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/orders": {
+      "post": {
+        "summary": "Create a new order",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "order_type": {
+                    "$ref": "#/components/schemas/OrderType",
+                    "required": true
+                  },
+                  "pickup": {
+                    "type": "string"
+                  },
+                  "dropoff": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "imagePaths": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "pickup",
+                  "dropoff",
+                  "description"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Order successfully created."
+          },
+          "400": {
+            "description": "Invalid input or payload."
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      },
+      "get": {
+        "summary": "Get all orders for user",
+        "description": "Returns a list of orders created by the user.",
+        "responses": {
+          "200": {
+            "description": "List of orders.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Order"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/orders/{id}": {
+      "get": {
+        "summary": "Get all orders for user",
+        "description": "Returns a list of orders created by the user.",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of orders.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Order"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "ID": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer",
+          "format": "uuid"
+        }
+      }
+    },
+    "schemas": {
+      "OrderType": {
+        "type": "string",
+        "enum": [
+          "delivery",
+          "food",
+          "grocery",
+          "errands"
+        ]
+      },
+      "OrderStatus": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "completed",
+          "cancelled",
+          "in_progress"
+        ]
+      },
+      "Order": {
+        "type": "object",
+        "properties": {
+          "order_type": {
+            "$ref": "#/components/schemas/OrderType"
+          },
+          "id": {
+            "$ref": "#/components/parameters/ID"
+          },
+          "pickup": {
+            "type": "string"
+          },
+          "dropoff": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/OrderStatus"
+          }
+        }
+      }
+    },
+    "responses": {
+      "401": {
+        "description": "Unauthorized access."
+      }
+    }
+  }
+}
