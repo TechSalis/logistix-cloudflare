@@ -1,7 +1,7 @@
 import { isRecord } from "../../../../../utils/functions";
-import { ValidatorResponse } from "../../../../../utils/validator_response";
+import type { ValidatorResponse } from "../../../../../utils/response";
 
-interface FoodOrderInput {
+type FoodOrderInput = {
   pickup?: unknown;
   dropoff?: unknown;
   description?: unknown;

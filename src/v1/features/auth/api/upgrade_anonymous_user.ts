@@ -1,15 +1,15 @@
 import { internalServerError } from '../../../../utils/error_responses';
 import { handleAuth } from '../helpers/handle_auth';
-import { signupWithPassword } from '../services/auth_service';
+import { upgradeAnonymousUser } from '../services/auth_service';
 
-export const urlPathPattern = '/auth/signup-password';
+export const urlPathPattern = '/auth/anonymous/upgrade';
 
 export async function execute(req: Request) {
     try {
-        const response = await handleAuth(req, async (login) => await signupWithPassword(login));
+        const response = await handleAuth(req, (login) => upgradeAnonymousUser(login));
         if (response) return response;
     } catch (err) {
-        console.error(urlPathPattern, 'error:', err);
+        console.error(urlPathPattern, "error:", err);
     }
     return internalServerError();
 }

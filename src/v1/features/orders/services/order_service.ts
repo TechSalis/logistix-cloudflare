@@ -1,9 +1,6 @@
-// Folder: cloudflare/services/order.service.ts
-
 import { supabaseRequest } from '../../../../db/supabase_client';
 
-interface CreateOrderParams {
-  user_id: string;
+export type CreateOrderParams = {
   pickup: Record<string, unknown>;
   dropoff: Record<string, unknown>;
   description: string;
@@ -12,11 +9,14 @@ interface CreateOrderParams {
 }
 
 export async function createOrder(
-  { user_id, pickup, dropoff, description, extras, order_type }: CreateOrderParams,
+  user_id: string,
+  token: string,
+  { pickup, dropoff, description, extras, order_type }: CreateOrderParams,
 ) {
   return await supabaseRequest(
     'Orders',
     'POST',
+    token,
     {
       user_id,
       pickup,
@@ -24,20 +24,24 @@ export async function createOrder(
       description,
       extras,
       order_type,
-      // status: 'pending'
-    }
+    },
   );
 }
 
 export async function getOrders(
-  userId: string, limit: number = 10
+  token: string, userId: string,
+  limit: number = 10, page: number = 0
 ) {
   return await supabaseRequest(
-    `Orders?select=*&user_id=eq.${userId}&order=created_at.desc&limit=${limit}`,
+    `Orders?select=*&user_id=eq.${userId}&order=created_at.desc&limit=${limit}&offset=${limit * page}`,
     'GET',
+    token,
   );
 }
 
-export async function getOrder(userId: string, id: string) {
-  return await supabaseRequest(`Orders?select=*&order_id=eq.${id}`, 'GET');
+export async function getOrder(
+  token: string, orderId: string) {
+  return await supabaseRequest(
+    `Orders?select=*&order_id=eq.${orderId}`, 'GET', token,
+  );
 }

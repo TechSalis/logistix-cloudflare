@@ -1,16 +1,13 @@
-import { OrderTypes } from '../../../../db/constants/db_constants';
-import { ValidatorResponse } from '../../../../utils/validator_response';
+import type { OrderType } from '../../../../db/constants/db_constants';
+import type { ValidatorResponse } from '../../../../utils/response';
 
 export default async function validateOrderByType(json: Record<string, unknown>): Promise<ValidatorResponse> {
-  const order_type = json.order_type as string;
-  let validateOrderInput: ((input: Record<string, unknown>) => ValidatorResponse);
-  
-  if (order_type === OrderTypes.food) {
-    validateOrderInput = (await import('./create_order/food_order_validator')).default;
-  } else if (order_type === OrderTypes.delivery) {
-    validateOrderInput = (await import('./create_order/delivery_order_validator')).default;
+  const order_type: OrderType = json.order_type as OrderType;
+  if (order_type === 'food') {
+    return (await import('./create_order/food_order_validator')).default(json);
+  } else if (order_type === 'delivery') {
+    return (await import('./create_order/delivery_order_validator')).default(json);
   } else {
-    return { valid: false, error: `Invalid order_type: ${order_type}. Must be one of ${OrderTypes.values}` };
+    return { valid: false, error: `Invalid type of order: ${order_type}. Must be one of ${'delivery'} | ${'food'} | ${'errands'} | ${'grocery'}` };
   }
-  return validateOrderInput(json);
 }

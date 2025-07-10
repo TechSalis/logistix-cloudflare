@@ -1,31 +1,39 @@
-import { createOrder } from '../services/order_service';
+import { createOrder, type CreateOrderParams } from '../services/order_service';
 import { handleRequest } from '../../../../lib/verify_jwt';
-import { ErrorResponse } from '../../../../utils/error_responses';
+import { badRequest, internalServerError } from '../../../../utils/error_responses';
 import validateOrderByType from '../validators/create_order_validator';
 
 export const urlPathPattern = '/orders';
 
-export default handleRequest(async ({ userId, json }) => {
-  const data = json as Record<string, unknown>;
+export default handleRequest(async ({ req, userId, token }) => {
+  try {
+    // eslint-disable-next-line no-var
+    var json = await req.json() as Record<string, unknown>;
+  } catch (err) {
+    console.error(urlPathPattern, 'Request.json() failed:', err);
+    return badRequest();
+  }
 
-  const validation = await validateOrderByType(data);
+  const validation = await validateOrderByType(json);
   if (!validation.valid) {
-    return ErrorResponse.badRequest(validation.error);
+    return badRequest(validation.error);
   }
 
   // Extract data properties and Create order
-  const pickup = data.pickup as Record<string, unknown>;
-  const dropoff = data.dropoff as Record<string, unknown>;
-  const description = data.description as string;
-  const extras = data.extras as Record<string, unknown>;
-  const order_type = data.order_type as string;
+  const body: CreateOrderParams = {
+    pickup: json.pickup as Record<string, unknown>,
+    dropoff: json.dropoff as Record<string, unknown>,
+    description: json.description as string,
+    extras: json.extras as Record<string, unknown>,
+    order_type: json.order_type as string
+  };
 
   try {
     //TODO: Move to Queue
-    const response = await createOrder({ user_id: userId, pickup, dropoff, description, extras, order_type });
+    const response = await createOrder(userId, token, body);
     return new Response(JSON.stringify(response.body), { status: response.status });
   } catch (err) {
-    console.error("Create order error:", err);
-    return ErrorResponse.internalServerError();
+    console.error(urlPathPattern, "error:", err);
+    return internalServerError();
   }
 });

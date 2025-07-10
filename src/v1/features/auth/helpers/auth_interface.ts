@@ -1,12 +1,13 @@
+import type { UserRole } from "../../../../db/constants/db_constants";
 
-export interface UserResponse {
+export type UserResponse = {
     id: string;
     is_anonymous: boolean;
     user_metadata: UserMetadata
 }
 
-interface UserMetadata {
-    role?: string;
+export type UserMetadata  = {
+    role?: UserRole;
     name?: string;
     email?: string;
     phone?: string;
@@ -18,16 +19,15 @@ export function mapUser(rawUser: Record<string, unknown>): UserResponse {
     return {
         id: rawUser.id as string,
         is_anonymous: (rawUser.is_anonymous || true) as boolean,
-        user_metadata: { ...rawUser.user_metadata as UserMetadata  }
+        user_metadata: rawUser.user_metadata as UserMetadata 
     };
 }
 
-export interface SessionResponse {
+export type SessionResponse = {
     refresh_token: string;
     access_token: string;
     expires_at?: number;
 }
-
 
 export function mapSession(rawSession: Record<string, unknown>): SessionResponse {
     return {

@@ -1,35 +1,15 @@
-import { ErrorResponse } from '../../../../utils/error_responses';
-import { mapSession, mapUser } from '../helpers/data_interfaces';
+import { internalServerError } from '../../../../utils/error_responses';
+import { handleAuth } from '../helpers/handle_auth';
 import { loginWithPassword } from '../services/auth_service';
-import validateAuthInput from '../validators/auth_validator';
 
 export const urlPathPattern = '/auth/login-password';
 
-export async function execute(request: Request) {
+export async function execute(req: Request) {
     try {
-        const json = await request.json() as Record<string, unknown>;
-        const { email, password } = json;
-
-        const validationError = validateAuthInput(email, password);
-        if (!validationError.valid) {
-            return ErrorResponse.badRequest(validationError.error);
-        }
-
-        const authService = await loginWithPassword(email as string, password as string);
-
-        if (authService.data.user && authService.data.session) {
-            const { user, session } = authService.data;
-            const mappedUser = mapUser({ ...user });
-            const mappedSession = mapSession({ ...session });
-
-            return new Response(JSON.stringify({ user: mappedUser, session: mappedSession }), { status: 200 });
-        }
-
-        if (authService.error) {
-            return new Response(authService.error.message, { status: authService.error.status });
-        }
+        const response = await handleAuth(req, async (login) => await loginWithPassword(login));
+        if (response) return response;
     } catch (err) {
-        console.error("Log in with password error:", err);
+        console.error(urlPathPattern, "error:", err);
     }
-    return ErrorResponse.internalServerError();
+    return internalServerError();
 }

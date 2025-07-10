@@ -1,4 +1,4 @@
-export interface ValidatorResponse {
+export type ValidatorResponse = {
     valid: boolean;
     error?: string;
 }

@@ -1,6 +1,6 @@
-import { ValidatorResponse } from "../../../../utils/validator_response";
+import type { ValidatorResponse } from "../../../../utils/response";
 
-export default function validateAuthInput(email: unknown, password: unknown, role?: unknown): ValidatorResponse {
+export default function validateAuthLoginInput(email: unknown, password: unknown, role?: unknown): ValidatorResponse {
 
     if (email == null || password == null) {
         return { valid: false, error: 'Email and password are required.' };

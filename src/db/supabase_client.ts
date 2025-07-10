@@ -5,7 +5,8 @@ import { env } from "cloudflare:workers";
 export async function supabaseRequest(
   path: string,
   method: 'GET' | 'POST' | 'PATCH' | 'DELETE',
-  body?: unknown
+  token: string,
+  body?: unknown,
 ) {
   const url = `${env.SUPABASE_URL}/rest/v1/${path}`;
 
@@ -15,7 +16,7 @@ export async function supabaseRequest(
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'apikey': env.SUPABASE_SERVICE_KEY,
-      'Authorization': `Bearer ${env.SUPABASE_SERVICE_KEY}`,
+      'Authorization': token,
     },
     body: body ? JSON.stringify(body) : undefined,
   });
@@ -25,7 +26,7 @@ export async function supabaseRequest(
   if (contentType.includes('application/json')) {
     responseBody = await res.json();
   } else {
-    console.warn('SupabaseRequest Response is not json');
+    console.warn('supabaseRequest: responseBody is not a json');
   }
 
   return {
