@@ -288,7 +288,7 @@
               "lat": {
                 "type": "number"
               },
-              "long": {
+              "lng": {
                 "type": "number"
               }
             }
