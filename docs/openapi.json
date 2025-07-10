@@ -10,7 +10,7 @@
       "description": "Local server"
     },
     {
-      "url": "",
+      "url": "https://cloudflare.logistix.workers.dev/v1",
       "description": "Development server"
     },
     {
@@ -32,6 +32,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "full_name": {
+                    "type": "string"
+                  },
                   "email": {
                     "type": "string"
                   },
@@ -40,9 +43,15 @@
                   }
                 },
                 "required": [
+                  "full_name",
                   "email",
                   "password"
                 ]
+              },
+              "example": {
+                "full_name": "John Doe",
+                "email": "user@email.com",
+                "password": "password"
               }
             }
           }
@@ -88,6 +97,10 @@
                   "email",
                   "password"
                 ]
+              },
+              "example": {
+                "email": "user@email.com",
+                "password": "password"
               }
             }
           }
@@ -166,6 +179,26 @@
         ],
         "summary": "Get all orders for user",
         "description": "Returns a list of orders created by the user.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "description": "Pagination. Starts from 0",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "description": "Items per page",
+              "default": 10
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "List of orders.",
