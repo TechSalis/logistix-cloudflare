@@ -4,8 +4,8 @@
  */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "logistix-api",
-	"main": "src/_router.ts",
+	"name": "logistix-rest-api",
+	"main": "src/v1/_router.ts",
 	"compatibility_date": "2025-07-05",
 	"observability": {
 		"enabled": true
