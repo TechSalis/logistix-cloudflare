@@ -1,0 +1,39 @@
+{
+  "name": "logistix-ts",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "v1/apis/*",
+    "src/packages/*"
+  ],
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "isows": "^1.0.7",
+    "jose": "^6.0.11",
+    "tr46": "^0.0.3",
+    "undici-types": "^7.8.0",
+    "webidl-conversions": "^3.0.1",
+    "whatwg-url": "^5.0.0",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TechSalis/logistix-cloudflare.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/TechSalis/logistix-cloudflare/issues"
+  },
+  "homepage": "https://github.com/TechSalis/logistix-cloudflare#readme"
+}

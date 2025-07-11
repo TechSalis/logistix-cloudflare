@@ -1,5 +1,5 @@
-import { isRecord } from "@cloudflare/core/utils/functions";
-import { ValidatorResponse } from '@cloudflare/core/utils/types';
+import { isRecord } from "@core/utils/functions";
+import { ValidatorResponse } from '@core/utils/types';
 
 type FoodOrderInput = {
   pickup?: unknown;

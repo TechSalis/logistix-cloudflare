@@ -1,4 +1,4 @@
-import { UserRole } from "@cloudflare/core/db/types";
+import { UserRole } from "@core/db/types";
 
 export type UserResponse = {
     id: string;

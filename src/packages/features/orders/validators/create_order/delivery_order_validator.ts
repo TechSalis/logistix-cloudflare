@@ -1,4 +1,4 @@
-import { ValidatorResponse } from '@cloudflare/core/utils/types';
+import { ValidatorResponse } from '@core/utils/types';
 
 interface DeliveryOrderInput {
   pickup?: unknown;

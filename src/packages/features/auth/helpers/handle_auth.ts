@@ -1,5 +1,5 @@
-import { UserRole } from "@cloudflare/core/db/types";
-import { badRequest } from "@cloudflare/core/utils/http";
+import { UserRole } from "@core/db/types";
+import { badRequest } from "@core/utils/http";
 import type { LoginParams, LoginResponse } from "../services/auth_service";
 import validateAuthLoginInput from "../validators/auth_validator";
 import { mapSession, mapUser } from "./auth_interface";

@@ -1,5 +1,5 @@
-import { OrderType } from '@cloudflare/core/db/types';
-import { ValidatorResponse } from '@cloudflare/core/utils/types';
+import { OrderType } from '@core/db/types';
+import { ValidatorResponse } from '@core/utils/types';
 
 export default async function validateCreateOrderParams(json: Record<string, unknown>): Promise<ValidatorResponse> {
   const order_type: OrderType = json.order_type as OrderType;
